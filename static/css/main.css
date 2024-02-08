@@ -1,0 +1,505 @@
+body{
+    /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif; */
+    /* font-family: Open Sans,Helvetica,Arial,Verdana,sans-serif; */
+    /* font-family: 'Open Sans','Open Sans Regular',sans-serif; */
+    background-color: #f7f7f7;   
+    /* font-family: 'Noticia Text', serif; */
+    font-family: 'Red Hat Display', sans-serif;
+    
+        
+}
+.pageHeading{
+  font-weight: 900;
+  font-size: 24px;
+  color:black;
+  background-color: var(--grey-custom-color);
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+
+
+.heading-custom{
+  margin-top:0.5rem;
+  background-color: var(--primary-custom-color); 
+  font-weight: 900; 
+  font-size: 1.4rem;
+  color:white;
+  text-align: center;
+  padding: .5rem;
+}
+.heading-custom a{
+  margin-top:0.5rem;
+  background-color: var(--primary-custom-color); 
+  font-weight: 900; 
+  font-size: 1.4rem;
+  color:white;
+  text-align: center;
+  padding: .5rem;
+}
+
+.primary-custom-color{
+  color:var(--primary-custom-color)
+}
+.secondary-custom-color{
+  color:var(--secondary-custom-color)
+}
+.bg-primary-custom-color{
+  background-color:var(--primary-custom-color)
+}
+.bg-secondary-custom-color{
+  background-color:var(--secondary-custom-color)
+}
+
+:root {
+    --custom-color: #0066b3; /* Your custom color code */
+    --primary-custom-color:#c0392b;
+    --secondary-custom-color:#e74c3c;
+    /* --grey-custom-color:rgba(0, 0, 0, 0.2); */
+    --grey-custom-color:#E8E8E8;
+  }
+  .btn-custom {
+    background-color: var(--custom-color);
+    border-color: var(--custom-color);
+  }
+  .btn-custom:hover {
+    /* background-color: darken(var(--custom-color), 10%);
+    border-color: darken(var(--custom-color), 10%); */
+    
+    background-color:#fff;
+    color:  var(--custom-color) !important;
+  }
+  
+  .btn-outline-custom {
+    color: var(--custom-color);
+    color: #fff; /* Text color for contrast */
+    
+    background-color: var(--custom-color);
+    border-color: white;
+  }
+  .btn-outline-custom:hover {
+    background-color:#fff;
+    color:  var(--custom-color); /* Text color for contrast */
+  }
+  
+  .btn-outline-custom.active {
+    background-color: #fff !important;
+    color: var(--custom-color); /* Text color for contrast */
+  }
+  .btn-outline-custom.active:hover {
+    background-color: var(--custom-color)!important; 
+    color: #fff;  /* Text color for contrast */
+  }
+
+.news-section .card a{
+    text-decoration: none!important;
+    color: inherit !important;
+}
+
+  .breadcrumb{
+    font-weight: 600;
+  text-transform: uppercase;
+  font-size: 12px; 
+  margin:0px;  
+  background-color: #f7f7f7;
+
+}
+
+html{
+  scroll-behavior: smooth !important;
+}
+
+
+/* FAQ SECTION homepage */
+.faq-section a{
+  color: black !important ;
+  font-size: 16px;
+  text-decoration: none;
+  font-weight: 600 ;
+}   
+
+/* Constituency cards on constituencies page  */ 
+
+.constituency-custom-card .box-shd{
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+}
+.constituency-custom-card .custom-grey-background{
+  background-color: var(--grey-custom-color);
+}
+
+/* Footer Css  */
+footer p{
+  font-size: 16px;
+  font-weight: 600;
+}
+
+footer a:hover{
+  text-decoration: underline;
+  color:var(--primary-custom-color) !important;
+}
+
+footer a{
+  color:inherit;
+}
+
+/* MAP SVG CSS  */
+#national-svg{
+  transition: transform 0.3s ease;
+  z-index: 1;
+
+}
+.zoom-controls {
+  position: absolute;
+  right: 30px;
+  bottom:10px;
+}
+
+.zoom-controls button {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+path{
+  fill:var(--primary-custom-color);
+  stroke: #f1f2f6; 
+        stroke-width: 0.2; 
+  }
+  path:hover{
+  fill:var(--secondary-custom-color);
+  
+  stroke-width: 1.2; 
+  }
+  #IOK, #GB{
+  fill: #bdc3c7 !important;
+  }
+  #GB{
+  fill: #95a5a6 !important;
+  }
+  .custom-tooltip .tooltip-inner {
+  background-color: #3498db; 
+  color: #ffffff;
+  }
+  .custom-tooltip .arrow::before {
+  border-bottom-color: #3498db !important; 
+  }
+
+  /* Result Card Css  */
+  #na-card{
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol" !important;
+  }
+  .border-bottom-text{
+    border-bottom: 3px solid var(--secondary-custom-color);
+  }
+  
+  .na-card-font p{
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 2px;
+    text-transform: uppercase;
+    color:grey
+  }
+  
+  .na-card-font2 p{
+    font-size: 1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+  
+  .digit-font{
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    color: #525252;
+    font-weight: 800;
+    font-size: 1.75rem;
+    line-height: 1.65rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .Winner-heading{
+    background:var(--secondary-custom-color);
+    font-size: 1.2rem;
+    text-transform: capitalize;
+    font-weight:900;
+    color:white;
+  }
+
+  /* News Card on homepage css  */
+  .newsContainer h1{
+    font-size: 27px;
+    margin: 6px 0;
+    line-height: 29px;
+
+  }
+
+  .overflow-limit-2{
+      overflow: hidden!important;
+  text-overflow: ellipsis!important;
+  display: -webkit-box!important;
+  -webkit-line-clamp: 2!important;
+  -webkit-box-orient: vertical!important;
+  font-weight: 700!important;
+  white-space: break-spaces!important;
+  text-align: left!important;
+  letter-spacing: 1px!important;
+  }
+  .overflow-limit-3{
+      overflow: hidden!important;
+  text-overflow: ellipsis!important;
+  display: -webkit-box!important;
+  -webkit-line-clamp: 3!important;
+  -webkit-box-orient: vertical!important;
+  font-weight: 700!important;
+  white-space: break-spaces!important;
+  text-align: left!important;
+  letter-spacing: 1px!important;
+  }
+
+  .newsContainer a{
+    text-decoration: none;
+    color:rgb(29, 29, 29);
+
+  }
+
+  .white-text-news-container a{
+    text-decoration: none;
+    color:white;
+  }
+
+
+  /* Tab Panel CSS  */
+
+  
+.tablinks{ 
+  font-size:16px !important;
+  font-weight:600 !important
+
+}
+
+  /* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  /* border: 1px solid #ccc; */
+  border-top: none;
+}
+
+
+/* HERO BG ON MAP CSS  */
+
+.hero-bg-custom{
+  background: url(/static/images/bgelect.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  /* background-attachment: fixed; */
+  background-position: 100%;
+
+}
+@media screen and (max-width: 768px) {
+.hero-bg-custom {
+  background: #e4e4e4 !important;
+}
+}
+
+/* Single Constituency heading style  */
+
+.custom-grey-background{
+  background-color: var(--grey-custom-color);
+  }
+.primary-custom-color{
+  color:var(--primary-custom-color)
+}
+.grey-shadow{
+  /* box-shadow: 1px 1px 5px grey; */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+
+}
+
+
+/* single constitution card top css  */
+.top-cards-4 i{
+  font-size: 2rem;
+  color:var(--primary-custom-color);
+
+}
+.top-cards-4 h5{
+  font-size: 14px; 
+  font-weight: 800;
+
+}
+.top-cards-4 h2{
+  font-size: 20px; 
+  font-weight: 900;
+
+}
+
+
+/* .breadcrumb css  */
+.breadcrumb-custom{
+  margin-top:0.5rem;
+}
+.breadcrumb-custom li a{
+  color:grey;
+  font-size:16px;
+  font-weight: 900;
+}
+.breadcrumb-custom li{
+  font-size:16px;
+  font-weight: 900;
+}
+.breadcrumb-custom nav{
+  background-color: var(--grey-custom-color) !important;
+}
+.breadcrumb-custom nav ol{
+  background-color: var(--grey-custom-color) !important;
+}
+
+
+.breadcrumb-custom .active{
+  color:var(--primary-custom-color) !important
+}
+
+
+/* data tables css */
+.data-table-custom{
+  font-weight: 600;
+  font-size: 16px;
+}
+.data-table-custom thead{
+  background-color: var(--primary-custom-color);
+  color:white;
+  font-size:16px;
+  font-weight: 700;
+}
+@media only screen and (max-width: 600px) {
+  .data-table-custom{
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 16px;
+  }
+}
+
+
+/* youtube video card  */
+.youtube-custom-col:hover{
+  transform: scale(1.2);
+  z-index: 100;
+}
+.youtube-custom-col{
+  
+  transition: transform .2s; /* Animation */
+}
+
+/* scrollTopBtn css  */
+#scrollTopBtn {
+  display: none; /* Hidden by default */
+  position: fixed; /* Fixed/sticky position */
+  bottom: 20px; /* Place the button at the bottom of the page */
+  right: 30px; /* Place the button 30px from the right */
+  z-index: 99; /* Make sure it does not overlap */
+  border: none; /* Remove borders */
+  outline: none; /* Remove outline */
+  background-color: var(--primary-custom-color); /* Set a background color */
+  color: white; /* Text color */
+  cursor: pointer; /* Add a mouse pointer on hover */
+  padding: 15px; /* Some padding */
+  border-radius: 10px; /* Rounded corners */
+  font-size: 18px; /* Increase font size */
+}
+
+#scrollTopBtn:hover {
+  background-color: var(--secondary-custom-color); /* Add a dark-grey background on hover */
+}
+@media only screen and (max-width: 600px) {
+  #scrollTopBtn {
+    bottom: 60px; 
+  }
+}
+
+.box-shd{
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+}
+
+.winner-text{
+  color:var(--primary-custom-color);
+  font-size: 1rem;
+  font-weight: bolder;
+  margin-left:1rem;
+}
+.winner-row{
+  background: #B7E5B4 !important;
+
+}
+.runnerup-text{
+  color:var(--secondary-custom-color);
+  font-size: 1rem;
+  font-weight: bolder;
+  margin-left:1rem;
+}
+.runnerup-row{
+  background: #FFFC9B !important;
+  
+}
+
+.heading-custom-news{
+  background-color: var(--primary-custom-color); 
+}
+.heading-custom-news h5{
+  margin-top:0.5rem;
+  font-weight: 900; 
+  font-size: 1.4rem;
+  color:white;
+  text-align: center;
+  padding-left:.5rem;
+  padding-right:.5rem;
+}
+.heading-custom-news a{
+  color:white;
+  font-weight: 700; 
+  font-size: 1rem;
+  padding: .5rem;
+
+}
+.heading-custom-news button{
+  background-color: white;
+  border:0;
+  color:var(--primary-custom-color);
+  padding:0.2rem 0.8rem;
+  cursor: pointer;
+  font-weight: 700; 
+
+}
+
+@media screen and (max-width: 768px) {
+  .heading-custom-news h5{
+    font-weight: 700; 
+    font-size: 1rem;
+  }
+}

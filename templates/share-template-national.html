@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Your site's title should be here</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Your site's description should be here">
+    <meta name="keywords" content="Your site's keywords should be here">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <link rel="stylesheet" href="/static/share_template/style.css"> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/static/share_template/js/match-height.js"></script> 
+    <script>
+		$(function () {
+			$('.match-height-bootstrap-row > * > *').matchHeight();
+			$('.match-height > *').matchHeight();
+		})
+	</script>
+  <!-- Include html2canvas library -->
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+  </head>
+  <body>
+    <div class="global_container_" id="htmlContent">
+      <div class="bg">
+        <div class="layer-17-holder">
+          <div class="col">
+            <img class="layer-10" src="/static/share_template/images/layer_10.png" alt="" width="201" height="461">
+            <img class="layer-9" src="/static/share_template/images/layer_9.png" alt="" width="269" height="306">
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="election-text group">
+            <img class="layer-22" src="/static/share_template/images/layer_22.png" alt="" width="238" height="264">
+            <div class="col-4">
+              <p class="general">GENERAL</p>
+              <p class="election">ELECTION</p>
+              <div class="layer-343-copy-holder">
+                2024
+              </div>
+              <img class="layer-23" src="/static/share_template/images/layer_23.png" alt="" width="437" height="64">
+            </div>
+          </div>
+          <div class="na-box group">
+            <div class="layer-343-copy-3-holder">
+              NA-130
+            </div>
+            <div class="row group">
+              <div class="col-7">
+                <p class="winner">WINNER</p>
+                <div class="row-5 no-space-between-inline-blocks">
+                  <img src="/static/share_template/images/party_flag.png" alt="" width="247" height="130">
+                  <img src="/static/share_template/images/smybol_box.png" alt="" width="186" height="131">
+                </div>
+                <div class="row-3 match-height group">
+                  <div class="rounded-rectangle-2-copy-3-holder">
+                    VOTEs
+                  </div>
+                  <div class="rounded-rectangle-2-copy-3-holder-2">
+                    100,500
+                  </div>
+                </div>
+                <div class="row-4 match-height group">
+                  <div class="rounded-rectangle-2-copy-2-holder">
+                    PARTY
+                  </div>
+                  <div class="party-name-box-holder">
+                    PMLN
+                  </div>
+                </div>
+              </div>
+              <div class="col-5 group">
+                <img class="rectangle-1" src="/static/share_template/images/rectangle_1.png" alt="">
+                <div class="party-head-name-holder">
+                  NAWAZ <span class="text-style">SHARIF</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row-2 group">
+            <div class="col-6">
+              <p class="text-5">UNOFFICIAL RESULTS</p>
+              <img class="layer-21" src="/static/share_template/images/layer_21.png" alt="" width="182" height="4">
+              <p class="text-6">www<strong class="fw700">.</strong>arynews<strong class="fw700">.</strong>tv</p>
+            </div>
+            <img class="layer-6" src="/static/share_template/images/layer_6.png" alt="" width="97" height="105">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <button id="share">Share</button>
+    </div>
+  </body>
+  <script>
+    window.onload = function () {
+    // Your html2canvas code here
+    document.getElementById('share').addEventListener('click', function () {
+        html2canvas(document.getElementById('htmlContent'), {
+            useCORS: true,
+            scale: 2 // Adjust the scale as needed
+        }).then(function (canvas) {
+            var imgData = canvas.toDataURL('image/png');
+            var link = document.createElement('a');
+            link.href = imgData;
+            link.download = 'image.png';
+            link.click();
+        });
+    });
+    };
+</script>
+
+</html>

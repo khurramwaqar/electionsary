@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}Pakistan General Elections 2024 Candidates Party and List{% endblock %}
+
+{% block meta %}
+<meta name="title" content="Pakistan General Elections 2024 Candidates Party and List">
+<meta name="description" content="General Elections 2024 Pakistan: The list of all candidates, parties participating in polls in Pakistan- their live updates and other details at ARY News election portal and candidates list are {% for i in party_candidates[:10] %}{{i.ca_candidates}}{% if not loop.last %}, {% endif %}{% endfor %}"/>
+<meta name="keywords" content="General Election 2024, Pakistan Election 2024 polls, Pakistan Elections, Pakistan General Elections 2024, Today Election results Pakistan, General elections update, Elections update, Elections results 2024, Elections results, Election polls, Election results live update, Elections, Candidates, Election Results "/>
+
+
+<!-- Required meta tags -->
+<link rel="canonical" href="https://elections.arynews.tv/party-candidates/{{party_id}}"/>
+<meta property="og:title" content="Pakistan General Elections 2024 Candidates Party and List"/>
+<meta property="og:description" content="General Elections 2024 Pakistan: The list of all candidates, parties participating in polls in Pakistan- their live updates and other details at ARY News election portal and candidates list are {% for i in party_candidates[:10] %}{{i.ca_candidates}}{% if not loop.last %}, {% endif %}{% endfor %}"/>
+<meta property="og:url" content="https://elections.arynews.tv/party-candidates/{{party_id}}"/>
+
+<meta name="twitter:description" content="General Elections 2024 Pakistan: The list of all candidates, parties participating in polls in Pakistan- their live updates and other details at ARY News election portal and candidates list are {% for i in party_candidates[:10] %}{{i.ca_candidates}}{% if not loop.last %}, {% endif %}{% endfor %}"/>
+
+{% endblock %}
+
+{% block style %}
+<!-- Data tables css  -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+
+{% endblock %}
+{% block content %}
+<!-- breadcrumb -->
+<div class="container p-0 breadcrumb-custom">
+    <nav aria-label="breadcrumb" class="breadcrumb py-2 m-0">
+        <ol class="breadcrumb p-0 m-0">
+            <li class="breadcrumb-item">
+                <a href="/">HOME</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">PARTY CANDIDATES</li>
+        </ol>
+    </nav>
+</div>
+<!-- breadcrumb ends  -->
+
+<div class="container p-0" style="min-height: 100vh;">
+    
+    <h5 class="heading-custom">
+        List of all {{party.Party_Name}} candidates for General Election 2024
+    </h5>
+    <div class="container">
+        
+    <table id="example" class="display compact data-table-custom" style="width:100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Candidate</th>
+                <th>Constituency</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- <tr>
+                <td>{{winner}} (Winner)</td>
+                <td>232424</td>
+                <td>PTI</td>
+            </tr> -->
+            {% for i in party_candidates %}
+            
+            <tr>
+                <td><a href="/constituency/{{i.cons_name}}/2024">{{i.cons_name}}</a></td>
+                <td>{{i.candidate_name}}</td>
+                <td>{{i.con	}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+</div>
+<!-- main container  -->
+<script>
+    new DataTable('#example');
+</script>
+{% endblock %}

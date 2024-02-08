@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block title %}Elections 2024 Political Party Candidates and List{% endblock %}
+
+{% block meta %}
+<meta name="title" content="Elections 2024 Political Party Candidates and List">
+<meta name="description" content="Pakistan will see elections 2024 on February 8 on 266 NA and 593 PA seats. ARY News Election portal brings you the list of all major political parties contesting in the polls."/>
+<meta name="keywords" content="General Election 2024, Pakistan Election 2024 polls, Pakistan Elections, Pakistan General Elections 2024, Today Election results Pakistan, General elections update, Elections update, Elections results 2024, Elections results, Election polls, Election results live update, Elections, Candidates, Election Results"/>
+
+
+<!-- Required meta tags -->
+<link rel="canonical" href="https://elections.arynews.tv/political-parties"/>
+<meta property="og:title" content="Elections 2024 Political Party Candidates and List"/>
+<meta property="og:description" content="Pakistan will see elections 2024 on February 8 on 266 NA and 593 PA seats. ARY News Election portal brings you the list of all major political parties contesting in the polls."/>
+<meta property="og:url" content="https://elections.arynews.tv/political-parties"/>
+
+<meta name="twitter:description" content="Pakistan will see elections 2024 on February 8 on 266 NA and 593 PA seats. ARY News Election portal brings you the list of all major political parties contesting in the polls."/>
+
+{% endblock %}
+
+{% block style %}
+{% endblock %}
+{% block content %}
+<!-- breadcrumb -->
+<div class="container p-0 breadcrumb-custom">
+    <nav aria-label="breadcrumb" class="breadcrumb py-2 m-0">
+        <ol class="breadcrumb p-0 m-0">
+            <li class="breadcrumb-item">
+                <a href="/">HOME</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">POLITICAL PARTIES</li>
+        </ol>
+    </nav>
+</div>
+<!-- breadcrumb ends  -->
+<!-- main container  -->
+<div class="container p-0">
+    <h5 class="heading-custom">
+        Pakistan Election 2024 Political Parties
+    </h5>
+    <div class="container p-3">
+        <div class="row" id="party_container">
+            {% for party in parties %}
+            <div class="col-lg-3 col-md-6 mb-2 mb-lg-0 pb-4" id="{{party.party_shortname}}">
+                <!-- Card-->
+                <div class="card rounded shadow-sm" style="background-color: #f7f7f7; cursor: pointer;" onclick="open_party('{{party.PartyID}}')">
+                    <div class="card-body p-0">
+                        <div class="px-1 py-4 text-center card-img-top" style="background-color: white; min-height: 12rem;">
+                            <img
+                                src="/static/images/flags/{{party.party_shortname}}.png"
+                                alt="{{party.party_shortname}}.png"
+                                width="100"
+                                class="mb-2 img-thumbnail d-block mx-auto"
+                            >
+                            <h5 class="mb-0" style="font-weight: 700; font-size: 16px;">{{party.Party_Name}}</h5>
+                            <p class="mb-0 mt-3" style="font-weight: 900; font-size: 14px;">{{party.party_shortname}}</p>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-lg-3 col-sm-12 col-md-6 text-dark " >
+            <div class=" text-center " onclick="open_party('{{party.PartyID}}')">
+                <div class="circle-container p-4 " style="background-color: transparent; border-radius: 50%; overflow: hidden; width: 150px; height: 150px; margin: 0 auto; border: 2px solid {{party.partyColor}};">
+                    <img class="card-img-top" style="width: 100%; height: 100%; object-fit: cover;" src="/static/images/parties/PTI.webp" alt="Card image cap">
+                </div>
+                <div class="d-flex justify-content-center pt-3">
+                    <p class="w-50 px-2 py-1 text-white" style="font-weight:600px;background-color: #0066b3;">{{party.party_shortname}}</p> 
+                </div>
+                <div class="text-dark" style="min-height: 10vh; font-size: 15px; color: #000; font-weight: 600;"> {{party.Party_Name}} </div>
+            </div>
+        </div> -->
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<script>
+    function open_party(party_id){
+        window.location.href = `/party-candidates/${party_id}`;
+    }
+</script>
+
+<script>
+    $(document).ready(function() {
+     // Define the desired order of IDs
+     var order = ['IND','IPP', 'BNP','BAP', 'TLP','ANP', 'MQM-P','JI', 'PTI', 'PPPP', 'PML-N'];
+   
+     // Sort the elements based on the order array
+     order.forEach(function(id) {
+       $('#' + id).prependTo('#party_container');
+     });
+   });
+   </script>
+{% endblock %}

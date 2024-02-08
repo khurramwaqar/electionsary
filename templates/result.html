@@ -1,0 +1,416 @@
+{% extends 'base.html' %}
+
+{% block title %}Pakistan General Election 2018 Results{% endblock %}
+
+{% block meta %}
+<meta name="title" content="Pakistan General Elections 2018: Results, Party Position, Candidates and Live Updates">
+<meta name="description" content="Pakistan will see elections 2018 on February 8 on 266 NA and 593 provincial assembly seats- Check the results of all these constituencies on ARY News election portal."/>
+<meta name="keywords" content="General Election 2018, Pakistan Election 2018 polls, Pakistan Elections, Pakistan General Elections 2018, Today Election results Pakistan, General elections update, Elections update, Elections results 2018, Elections results, Election polls, Election results live update, Elections, Candidates, Election Results"/>
+
+
+<!-- Required meta tags -->
+<link rel="canonical" href="https://elections.arynews.tv/results"/>
+<meta property="og:title" content="Pakistan General Election 2018 Results"/>
+<meta property="og:description" content="Pakistan will see elections 2018 on February 8 on 266 NA and 593 provincial assembly seats- Check the results of all these constituencies on ARY News election portal."/>
+<meta property="og:url" content="https://elections.arynews.tv/results"/>
+
+<meta name="twitter:description" content="Pakistan will see elections 2018 on February 8 on 266 NA and 593 provincial assembly seats- Check the results of all these constituencies on ARY News election portal."/>
+
+{% endblock %}
+
+{% block style %}
+<!-- sweet alert 2  -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% endblock %}
+{% block content %}
+
+<!-- breadcrumb -->
+<div class="container p-0 breadcrumb-custom">
+    <nav aria-label="breadcrumb" class="breadcrumb py-2 m-0">
+        <ol class="breadcrumb p-0 m-0">
+            <li class="breadcrumb-item">
+                <a href="/">HOME</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Results 2018</li>
+        </ol>
+    </nav>
+</div>
+<!-- breadcrumb ends  -->
+<div class="container mt-2 p-0">
+    <h5 class="heading-custom">
+        Election 2018 Results
+    </h5>
+    <!-- Tab links -->
+    <div class="tab">
+        <div class="row">
+            <div class="col-md-8 col-10">
+                {% for province in provinces %}
+                <button class="tablinks" id="tab-{{province.provinceID}}" onclick="openCity(event,'{{province.provinceID}}' ,'{{province.pName}}')">{{province.pName}}</button>
+                {% endfor %}
+            </div>
+            <!-- Search Button  -->
+            <div class="col-md-4 col-sm-12 col-12 mb-2 mt-0">
+                <div class="row justify-content-center justify-content-md-end m-0 p-0">
+                    <button class="tablinks p-0 mt-md-2 mr-md-2">
+                        <form class="form-group mb-0 ">
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="search-constituency"
+                                placeholder="Search Constituency"
+                            >
+                        </form>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Tab content -->
+    {% for province in provinces %}
+    <div id="{{province.pName}}" class="tabcontent">
+        <h5 class="mt-2">{{province.pName}}</h5>
+        <div id="constitution-card-{{province.pName}}" class="constitution-card"></div>
+    </div>
+    {% endfor %}
+    
+    <div id="constitution-card-search" class="constitution-card"></div>
+</div>
+<script>   
+    let currentPage = 1; 
+    const itemsPerPage = 5;
+    function generate_constitution(provinceID, provinceName){
+        Swal.fire({
+            title: 'loading...',
+            html: 'Please wait...',
+            allowEscapeKey: false,
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading()
+            }
+        });
+        
+        // clear other provinces first 
+        // Get all elements with class "constitution-card"
+        var constitutionCards = document.querySelectorAll('.constitution-card');
+
+        // Loop through each element and clear inner HTML
+        constitutionCards.forEach(function(card) {
+        card.innerHTML = '';
+        });
+        const constitutionCard = document.getElementById(`constitution-card-${provinceName}`);
+
+        // Using native Fetch API instead of jQuery.ajax
+        fetch(`{{domain}}/get-constituency-data/${provinceID}`)
+            .then(response => response.json())
+            .then(data => {               
+                
+                const totalItems = data.length;
+                const startIndex = (currentPage - 1) * itemsPerPage;
+                const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+ 
+                data.slice(startIndex, endIndex).forEach(item => {
+                    const containerDiv = document.createElement("div");
+                    containerDiv.className = "container-fluid";
+                    const na_info = item.na_info;
+                    containerDiv.innerHTML = `
+                        <div class="container-fluid" id="scrollto-${provinceID}">
+                            <div class="row  f-dlex rounded mb-5" style="box-shadow: 3px 3px 5px 2px var(--grey-custom-color); border:1px solid var(--grey-custom-color)">
+                                <!-- 1st col  -->
+                                <div class="col-12 col-md-4 px-5 py-2 d-flex flex-column align-items-center align-items-md-start">
+                                    <div class="border-bottom-text na-card-font">
+                                        <p class="text-center text-sm-left">
+                                            ${item.constituency}
+                                            <br>
+                                            ${item.Name}
+                                        </p>
+                                    </div>
+                                    <div class="mt-3 na-card-font2 text-center text-sm-left">
+                                        <p>
+                                            <span class="tabpanelSpan digit-font">
+                                                ${na_info.voters}
+                                            </span>
+                                            <br>
+                                            VOTERS
+                                        </p>
+                                    </div>
+                                    <div class="na-card-font2 text-center text-sm-left">
+                                        <div>
+                                            <p>
+                                                <span class="digit-font">${na_info.male}</span>   
+                                                <br>
+                                                MALE
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <p>
+                                                <span class="digit-font">${na_info.female}</span>                        
+                                                <br>
+                                                FEMALE
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="na-card-font2 text-center text-sm-left">
+                                        <p >
+                                            POLLING STATIONS: ${na_info.polling_stations}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- 2nd col  -->
+                                <div class="col-12 col-md-4 px-1 justify-content-center d-flex">            
+                                    <img class="img-fluid img w-50 py-5 " src="/static/images/maps/${item.constituency}.svg" alt="">
+                                </div>
+
+                                <!-- 3rd col  -->
+                                <div class="col-12 col-md-4 px-5 py-2 d-flex flex-column align-items-center align-items-md-end justify-content-center" style="min-height: 50vh;">
+                                    <div class="na-card-font text-center text-sm-left">
+                                        <h5 class="Winner-heading rounded px-2 py-1">${item.winner}</h5>
+                                    </div>
+                                    <div class="na-card-font text-center text-sm-left">
+                                        <p>Winner</p>
+                                    </div>
+                                    <div class="na-card-font2 text-center text-sm-left">
+                                        <p>
+                                            <span class="digit-font">${na_info.turnout}%</span>
+                                            <br>
+                                            TURNOUT
+                                        </p>
+                                    </div>
+                                    <div class="na-card-font2 text-center text-sm-left">
+                                        <p>
+                                            <span class="digit-font">${na_info.votes_polled}</span>
+                                            <br>
+                                            VOTES POLLED
+                                        </p>
+                                    </div>
+                                    <div class="na-card-font2 text-center text-sm-left">
+                                        <p>
+                                            <span class="digit-font">${na_info.win_votes}</span>
+                                            <br>
+                                            VOTES
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                    constitutionCard.appendChild(containerDiv);
+                });
+                // Display "Load More" button if there are more items
+                if (endIndex < totalItems) {
+
+
+                    // / Create a div with class "text-center"
+                    const buttonContainer = document.createElement("div");
+                    buttonContainer.classList.add("text-center");
+
+                    // Create the button
+                    const loadMoreButton = document.createElement("button");
+                    loadMoreButton.innerText = "Next";
+                    loadMoreButton.classList.add("btn", "btn-dark", "btn-lg","bg-primary-custom-color");
+
+                    // Append the button to the div
+                    buttonContainer.appendChild(loadMoreButton);
+
+
+                
+                loadMoreButton.addEventListener("click", () => {
+                    currentPage++;
+                    generate_constitution(provinceID, provinceName);
+
+                    // Scroll to the newly appended content
+                    const newContent = constitutionCard.lastElementChild;
+                    if (newContent) {
+                        newContent.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+                constitutionCard.appendChild(buttonContainer);
+            }
+                swal.close()    
+            })
+            .catch(error => console.error('Error fetching data:', error));
+            swal.close()
+
+    }
+</script>
+<script>
+    function openCity(evt,provinceID, province) {
+        // Declare all variables
+        var i, tabcontent, tablinks;
+
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(province).style.display = "block";
+        if (evt != undefined){
+            evt.currentTarget.className += " active"; 
+
+        }else{
+        document.getElementById(`tab-${provinceID}`).className += " active";
+        }
+        // call main funtion 
+        generate_constitution(provinceID,province);
+
+    }
+
+
+// Open default tab
+</script>
+{% if default_province %}
+<script>
+openCity(event, '{{default_province.provinceID}}','{{default_province.pName}}')
+</script>
+{% else %}
+<script>
+openCity(event, '{{provinces[0].provinceID}}','{{provinces[0].pName}}')
+</script>
+<!-- search script  -->
+<script>   
+
+$(document).ready(function(){
+        // Attach the 'input' event listener to the input element with id 'search-constituency'
+        $("#search-constituency").on("input", function(){
+            // Log the value to the console when the input value changes
+            query = $(this).val()
+            console.log(query);
+            generate_search(query)
+        });
+    });
+    function generate_search(query){
+
+        if( query ==""){
+            $(".tabcontent").removeClass('d-none');
+            
+            openCity(event, '{{provinces[0].provinceID}}','{{provinces[0].pName}}')
+            
+        }
+        
+        // clear other provinces first 
+        // Get all elements with class "constitution-card"
+        var constitutionCards = document.querySelectorAll('.constitution-card');
+
+        // Loop through each element and clear inner HTML
+        constitutionCards.forEach(function(card) {
+        card.innerHTML = '';
+        });
+        const constitutionCard = document.getElementById(`constitution-card-search`);
+
+        // Using native Fetch API instead of jQuery.ajax
+        fetch(`{{domain}}/get-constituency-data-from-search/${query}`)
+            .then(response => response.json())
+            .then(data => {   
+                if (data){
+                                
+ 
+                    const containerDiv = document.createElement("div");
+                    containerDiv.className = "container-fluid";
+                    const na_info = data.na_info;
+                    containerDiv.innerHTML = `
+                        <div class="container-fluid" id="scrollto-1">
+                            <div class="row  f-dlex rounded mb-5" style="box-shadow: 3px 3px 5px 2px var(--grey-custom-color); border:1px solid var(--grey-custom-color)">
+                                <!-- 1st col  -->
+                                <div class="col-12 col-md-4 px-5 py-2 d-flex flex-column align-items-center align-items-md-start">
+                                    <div class="border-bottom-text na-card-font">
+                                        <p class="text-center text-sm-left">
+                                            ${data.constituency}
+                                            <br>
+                                            ${data.Name}
+                                        </p>
+                                    </div>
+                                    <div class="mt-3 na-card-font2 text-center text-sm-left">
+                                        <p>
+                                            <span class="tabpanelSpan digit-font">
+                                                ${na_info.voters}
+                                            </span>
+                                            <br>
+                                            VOTERS
+                                        </p>
+                                    </div>
+                                    <div class="na-card-font2 text-center text-sm-left">
+                                        <div>
+                                            <p>
+                                                <span class="digit-font">${na_info.male}</span>   
+                                                <br>
+                                                MALE
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <p>
+                                                <span class="digit-font">${na_info.female}</span>                        
+                                                <br>
+                                                FEMALE
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="na-card-font2 text-center text-sm-left">
+                                        <p >
+                                            POLLING STATIONS: ${na_info.polling_stations}
+                                        </p>
+                                    </div>
+                                </div>
+
+
+                                <!-- 2nd col  -->
+                                <div class="col-12 col-md-4 px-1 justify-content-center d-flex">            
+                                    <img class="img-fluid img w-50 py-5 " src="/static/images/maps/${data.constituency}.svg" alt="">
+                                </div>
+
+                                <!-- 3rd col  -->
+                                <div class="col-12 col-md-4 px-5 py-2 d-flex flex-column align-items-center align-items-md-end justify-content-center" style="min-height: 50vh;">
+                                    <div class="na-card-font text-center text-sm-left">
+                                        <h5 class="Winner-heading rounded px-2 py-1">${data.winner}</h5>
+                                    </div>
+                                    <div class="na-card-font text-center text-sm-left">
+                                        <p>Winner</p>
+                                    </div>
+                                    <div class="na-card-font2 text-center text-sm-left">
+                                        <p>
+                                            <span class="digit-font">${na_info.turnout}%</span>
+                                            <br>
+                                            TURNOUT
+                                        </p>
+                                    </div>
+                                    <div class="na-card-font2 text-center text-sm-left">
+                                        <p>
+                                            <span class="digit-font">${na_info.votes_polled}</span>
+                                            <br>
+                                            VOTES POLLED
+                                        </p>
+                                    </div>
+                                    <div class="na-card-font2 text-center text-sm-left">
+                                        <p>
+                                            <span class="digit-font">${na_info.win_votes}</span>
+                                            <br>
+                                            VOTES
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    $(".tabcontent").addClass('d-none');
+                    constitutionCard.appendChild(containerDiv);
+
+                }
+                
+                swal.close()    
+            })
+            .catch(error => console.error('Error fetching data:', error));
+
+    }
+</script>
+{% endif %}
+
+{% endblock %}

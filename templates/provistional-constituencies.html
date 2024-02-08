@@ -1,0 +1,302 @@
+{% extends 'base.html' %}
+
+{% block title %}Pakistan General Elections 2024 Provincial Constituency List and Result{% endblock %}
+
+{% block meta %}
+<meta name="title" content="Pakistan General Elections 2024 Provincial Constituency List and Result">
+<meta name="description" content="Pakistan will see elections 2024 on February 8 on 266 NA and 593 PA seats. The full list of constituencies is available here on ARY News election portal."/>
+<meta name="keywords" content="General Election 2024, Pakistan Election 2024 polls, Pakistan Elections, Pakistan General Elections 2024, Today Election results Pakistan, General elections update, Elections update, Elections results 2024, Elections results, Election polls, Election results live update, Elections, Candidates, Election Results"/>
+
+
+<!-- Required meta tags -->
+<link rel="canonical" href="https://elections.arynews.tv/constituencies/{{type}}/2024"/>
+<meta property="og:title" content="Pakistan General Elections 2024 Provincial Constituency List and Result"/>
+<meta property="og:description" content="Pakistan will see elections 2024 on February 8 on 266 NA and 593 PA seats. The full list of constituencies is available here on ARY News election portal."/>
+<meta property="og:url" content="https://elections.arynews.tv/constituencies/{{type}}/2024"/>
+
+<meta name="twitter:description" content="Pakistan will see elections 2024 on February 8 on 266 NA and 593 PA seats. The full list of constituencies is available here on ARY News election portal."/>
+
+{% endblock %}
+
+{% block style %}
+{% endblock %}
+{% block content %}
+<!-- breadcrumb -->
+<div class="container p-0 breadcrumb-custom">
+    <nav aria-label="breadcrumb" class="breadcrumb py-2 m-0">
+        <ol class="breadcrumb p-0 m-0">
+            <li class="breadcrumb-item">
+                <a href="/">HOME</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">{{type}} Assembly</li>
+        </ol>
+    </nav>
+</div>
+<!-- breadcrumb ends  -->
+<!-- main container  -->
+<div class="container p-0">
+    <h5 class="heading-custom">
+        {{type|capitalize}} Assembly Elections 2024     
+    </h5>
+    <!-- Tab links -->
+    <div class="tab">
+        <div class="row">
+            <div class="col-md-8 col-12">
+                <a href="/constituencies/national/2024"><button class="tablinks btn btn-sm {% if type == 'national' %}active{% endif %}">NATIONAL ASSEMBLY</button></a>
+                <a href="/constituencies/punjab/2024"><button class="tablinks btn btn-sm {% if type == 'punjab' %}active{% endif %}">PUNJAB</button></a>
+                <a href="/constituencies/sindh/2024"><button class="tablinks btn btn-sm {% if type == 'sindh' %}active{% endif %}">SINDH</button></a>
+                <a href="/constituencies/kpk/2024"><button class="tablinks btn btn-sm {% if type == 'kpk' %}active{% endif %}">KPK</button></a>
+                <a href="/constituencies/balochistan/2024"><button class="tablinks btn btn-sm {% if type == 'balochistan' %}active{% endif %}">BALOCHISTAN</button></a>
+            </div>
+        </div>
+    </div>
+    <!-- total seats row  -->
+    <div class="row justify-content-center my-2 px-3">
+        <div class="col-12 col-md-2 p-2 d-flex flex-row bg-dark rounded text-white justify-content-between" style="font-size:18px;font-weight: 800;">
+            <div>TOTAL SEATS</div>
+            <div>{{total_seats}}</div>
+        </div>
+    </div>
+    <!-- search and select row  -->
+    <div class="row ">
+        <div class="col-12 d-flex justify-content-between flex-column flex-md-row align-items-center">            
+            <div class="form-group">
+                <label class="sr-only" for="search_constituency">Username</label>
+                <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">{{province_short}}-</div>
+                  </div>
+                  <input type="number" class="form-control-sm w-50" style="border: 1px solid #ced4da;" id="search_constituency">
+                  <button onclick="search()" class="btn btn-sm text-white" style="background-color: #c0392b;">Search</button>
+                </div>
+            </div>
+            {% if type == 'sindh' %}
+            <div class="form-group">
+                <select class="form-control" id="exampleFormControlSelect1">
+                  <option>Select to View More</option>
+                  <option>1-50</option>
+                  <option>51-100</option>
+                  <option>101-130</option>
+                </select>
+            </div>
+            {% elif type == 'kpk' %}
+            
+            <div class="form-group">
+                <select class="form-control" id="exampleFormControlSelect1">
+                  <option>Select to View More</option>
+                  <option>1-50</option>
+                  <option>51-100</option>
+                  <option>101-115</option>
+                </select>
+            </div>
+            {% elif type == 'balochistan' %}
+            
+            <div class="form-group">
+                <select class="form-control" id="exampleFormControlSelect1">
+                  <option>Select to View More</option>
+                  <option>1-50</option>
+                  <option>51-51</option>
+                </select>
+            </div>
+            {% elif type == 'punjab' %}
+            
+            <div class="form-group">
+                <select class="form-control" id="exampleFormControlSelect1">
+                  <option>Select to View More</option>
+                  <option>1-50</option>
+                  <option>51-100</option>
+                  <option>101-150</option>
+                  <option>151-200</option>
+                  <option>201-250</option>
+                  <option>251-297</option>
+                </select>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <!-- constituinces cards  -->
+    <div class="row d-flex" id="constitution-cards-container">
+        {% for i in data %}
+        <div class="col-md-4 card-container mb-3 constituency-custom-card">
+            <div class="row d-flex text-center mx-1 box-shd">
+                <div class="col-12 p-1 custom-grey-background">
+                    <div class="row d-flex p-1">
+                        <div class="col-12 d-flex flex-row justify-content-between">
+                            <h5 style="font-size: 24px;font-weight: bolder;">{{i.constituency}}</h5>
+                            <h5 style="font-size: 20px;font-weight: bolder;">{{i.Name}}</h5>
+                        </div>
+                        <div class="col-12 d-flex flex-row justify-content-between">
+                            <h5  style="font-size: 16px;font-weight: 700;">
+                                <i class="fas fa-users"></i> Reg. Voters</h5>
+                            <h5 style="font-size: 16px;font-weight: 700;">{{i.reg_voters}}</h5>
+                        </div>
+                        <div class="col-12 d-flex flex-row justify-content-between">
+                            <h5  style="font-size: 16px;font-weight: 700;">
+                                <i class="fas fa-male"></i> Male Voters</h5>
+                            <h5 style="font-size: 16px;font-weight: 700;">{{i.male_voters}}</h5>
+                        </div>
+                        <div class="col-12 d-flex flex-row justify-content-between">
+                            <h5  style="font-size: 16px;font-weight: 700;">
+                                <i class="fas fa-female"></i> Female Voters</h5>
+                            <h5 style="font-size: 16px;font-weight: 700;">{{i.female_voters}}</h5>
+                        </div>
+                        <div class="col-12 d-flex flex-row justify-content-between">
+                            <h5  style="font-size: 16px;font-weight: 700;">
+                                <i class="fas fa-vote-yea"></i> Polling Stations</h5>
+                            <h5 style="font-size: 16px;font-weight: 700;">{{i.polling_stations}}</h5>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="col-12 p-3">
+                    <img class="img-fluid" src="/static/images/maps/NA-9.svg" alt="">
+                </div> -->
+                
+                <div class="col-12 p-3">
+                    <a href="/constituency/{{i.constituency}}/2024">
+                        <button class="btn btn-lg w-100 text-white bg-primary-custom-color" >View Details</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- End Card 2 -->
+        {% endfor %}
+    </div>
+</div>
+
+<!-- select pagination function  -->
+<script>
+    $(document).ready(function () {
+
+        var province = "{{ type }}";
+        // Set the number of results to display at a time
+        var resultsPerPage = 50;
+
+        // Hide all cards initially
+        $('.constituency-custom-card').hide();
+
+        // Show the first 'resultsPerPage' cards
+        $('.constituency-custom-card:lt(' + resultsPerPage + ')').show();
+
+        // Initialize the current page
+        var currentPage = 1;
+
+        
+
+        // Handle the selection change in the dropdown
+        $('#exampleFormControlSelect1').on('change', function () {
+            // Get the selected option
+            var selectedOption = $(this).val();
+
+            // Hide all cards
+            $('.constituency-custom-card').hide();
+
+            // Show the selected range of cards based on the dropdown selection
+            if (province == 'sindh'){
+                switch (selectedOption) {
+                    case '1-50':
+                        $('.constituency-custom-card:lt(50)').show();
+                        break;
+                    case '51-100':
+                        $('.constituency-custom-card:lt(100):gt(49)').show();
+                        break;
+                    case '101-130':
+                        $('.constituency-custom-card:lt(150):gt(99)').show();
+                        break;
+                    default:
+                        // Show the first 'resultsPerPage' cards if no specific range is selected
+                        $('.constituency-custom-card:lt(' + resultsPerPage + ')').show();
+                        break;
+                }
+            }
+            else if(province == 'punjab'){
+                switch (selectedOption) {
+                    case '1-50':
+                        $('.constituency-custom-card:lt(50)').show();
+                        break;
+                    case '51-100':
+                        $('.constituency-custom-card:lt(100):gt(49)').show();
+                        break;
+                    case '101-150':
+                        $('.constituency-custom-card:lt(150):gt(99)').show();
+                        break;
+                    case '151-200':
+                        $('.constituency-custom-card:lt(200):gt(149)').show();
+                        break;
+                    case '201-250':
+                        $('.constituency-custom-card:lt(250):gt(199)').show();
+                        break;
+                    case '251-297':
+                        $('.constituency-custom-card:lt(266):gt(249)').show();
+                        break;
+                    default:
+                        // Show the first 'resultsPerPage' cards if no specific range is selected
+                        $('.constituency-custom-card:lt(' + resultsPerPage + ')').show();
+                        break;
+                }
+
+            }
+            else if(province == 'kpk'){
+                switch (selectedOption) {
+                    case '1-50':
+                    $('.constituency-custom-card:lt(50)').show();
+                        break;
+                    case '51-100':
+                        $('.constituency-custom-card:lt(100):gt(49)').show();
+                        break;
+                    case '101-115':
+                        $('.constituency-custom-card:lt(150):gt(99)').show();
+                        break;
+                    default:
+                        // Show the first 'resultsPerPage' cards if no specific range is selected
+                        $('.constituency-custom-card:lt(' + resultsPerPage + ')').show();
+                        break;
+                }
+
+            }
+            else if(province == 'balochistan'){
+                switch (selectedOption) {
+                    case '1-50':
+                        $('.constituency-custom-card:lt(50)').show();
+                        break;
+                    case '51-51':
+                        $('.constituency-custom-card:lt(100):gt(49)').show();
+                        break;
+                    default:
+                        // Show the first 'resultsPerPage' cards if no specific range is selected
+                        $('.constituency-custom-card:lt(' + resultsPerPage + ')').show();
+                        break;
+                }
+
+            }
+
+            // Reset the current page to 1
+            currentPage = 1;
+        });
+    });
+</script>
+
+<!-- search function  -->
+<script>
+    function search() {
+      // Get the entered value
+      var enteredValue = document.getElementById('search_constituency').value;
+
+      // Check if the entered value is a valid integer between 1 and 266
+      if (isInteger(enteredValue) && enteredValue >= 1 && enteredValue <= 130) {
+        // Redirect to the specified URL
+        window.location.href = '/constituency/{{province_short}}-'+enteredValue+'/2024';
+      } else {
+        // Show an alert if the entered value is not valid
+        alert('Record does not exist.');
+      }
+    }
+
+    // Helper function to check if a value is an integer
+    function isInteger(value) {
+      return Number.isInteger(Number(value));
+    }
+  </script>
+
+
+
+{% endblock %}

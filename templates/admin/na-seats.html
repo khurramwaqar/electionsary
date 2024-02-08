@@ -1,0 +1,109 @@
+{% extends 'admin/layout.html' %}
+
+{% block title %}Admin Dashboard | NA-Seats{% endblock %}
+
+{% block content%}
+s
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap4.min.css">
+
+<section>
+    {% if parties %}
+    <div class="container my-5 table-responsive">
+        <h3>List of Candidates for</h3>
+        
+            
+        <table id="example" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Party</th>
+                    <th>Seats</th>
+                    <th>Image</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            <tbody>                
+                {% for i in parties %}                
+                <tr>
+                    <td>{{i.id}}</td>
+                    <td>{{i.party_abv}}</td>
+                    {% if i.seats %}
+                    <td class="bg-success text-white">{{i.seats}}</td>
+                    {% else %}
+                    <td class="bg-secondary text-white">N/A</td>
+                    {% endif %}
+                    
+                    <td><img src="/static/images/flags/{{i.party_abv}}.png" width="50" height="50" class="img-fluid" alt=""></td>
+                    
+                    <td><button type="button" onclick="openModal('{{i.id}}','{{i.party_abv}}','{{i.seats}}','{{i.party_abv}}')" data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-danger w-100">Edit</button></td>
+                </tr>                
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>ID</th>
+                    <th>Party</th>
+                    <th>Seats</th>
+                    <th>Image</th>
+                    <th>Edit</th>
+                </tr>
+            </tfoot>
+        </table>
+
+    </div>
+    {% endif %}
+</section>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Edit</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="modal-body">            
+          
+        </div>
+        <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div> -->
+      </div>
+    </div>
+  </div>
+
+<script>
+    new DataTable('#example');
+</script>
+<script>
+    function openModal(id, party_short_name, seats,img) {
+        var html = `
+            <form action="/admin/na-seats" method="post">
+                <div class="form-group">
+                  <label for="id">ID</label>
+                  <input type="text" name="party_id" class="form-control" id="id" value="${id}"  readonly>
+                </div>
+                <div class="form-group">
+                  <label for="party_short_name">Party</label>
+                  <input type="text" name="party_short_name" class="form-control" id="party_short_name" value="${party_short_name}" readonly>
+                </div>
+                <div class="form-group">
+                  <label for="seats">Seats *</label>
+                  <input type="number" name="seats" class="form-control" value="${seats}" id="seats" required>
+                </div>
+                <div class="form-group">
+                    <label for "img">Image</label>
+                    <div>
+                        <image class="image-fluid" src='/static/images/flags/${img}.png' >
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Update</button>
+            </form>
+            `;
+        document.getElementById('modal-body').innerHTML=html;
+    }
+</script>
+{% endblock %}

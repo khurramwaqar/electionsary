@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+
+{% block title %}{{data.constituency}} Election Result 2024 {{data.Name}}, Candidates List{% endblock %}
+
+
+{% block meta %}
+<meta name="title" content="{{data.constituency}} Election Result 2024 {{data.Name}}, Candidates List">
+<meta name="description" content="{{data.constituency}}: Elections Results Live 2024: {{data.Name}} {{data.Name}} constituency candidates and all updates for general elections in Pakistan and candidates list are {% for i in candidates %}{{i.candidate_name}}{% if not loop.last %}, {% endif %}{% endfor %}" />
+
+<meta name="keywords" content="General Election 2024, Pakistan Election 2024 polls, Pakistan Elections, Pakistan General Elections 2024, Today Election results Pakistan, General elections update, Elections update, Elections results 2024, Elections results, Election polls, Election results live update, Elections, Candidates, Election Results"/>
+
+
+<!-- Required meta tags -->
+<link rel="canonical" href="https://elections.arynews.tv/constituency/{{data.constituency}}/2024"/>
+<meta property="og:title" content="{{data.constituency}} Election Result 2024 {{data.Name}}, Candidates List"/>
+<meta property="og:description" content="{{data.constituency}}: Elections Results Live 2024: {{data.Name}} {{data.Name}} constituency candidates and all updates for general elections in Pakistan and candidates list are {% for i in candidates %}{{i.candidate_name}}{% if not loop.last %}, {% endif %}{% endfor %}"/>
+<meta property="og:url" content="https://elections.arynews.tv/constituency/{{data.constituency}}/2024"/>
+
+<meta name="twitter:description" content="{{data.constituency}}: Elections Results Live 2024: {{data.Name}} {{data.Name}} constituency candidates and all updates for general elections in Pakistan and candidates list are {% for i in candidates %}{{i.candidate_name}}{% if not loop.last %}, {% endif %}{% endfor %}"/>
+
+{% endblock %}
+
+{% block style %}
+<style>
+#pk-constituency p{
+    font-size: 1rem;
+    font-weight: 600;
+}
+#pk-constituency .digit-font{
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    color: #525252;
+    font-weight: 800;
+    font-size: 1.75rem;
+    line-height: 1.65rem;
+    margin-bottom: 0.5rem;
+    color: white;
+}
+
+</style>
+
+<!-- Data tables css  -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+
+{% endblock %}
+{% block content %}
+<!-- breadcrumb -->
+<div class="container p-0 breadcrumb-custom">
+    <nav aria-label="breadcrumb" class="breadcrumb py-2 m-0">
+        <ol class="breadcrumb p-0 m-0">
+            <li class="breadcrumb-item">
+                <a href="/">HOME</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="/constituencies/national/2024">CONSTITUENCIES</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">{{data.constituency}}</li>
+        </ol>
+    </nav>
+</div>
+<!-- breadcrumb ends  -->
+<div class="container p-0" id="pk-constituency">
+    <div class="row my-2">
+        <div class="col-md-12">
+            <h5 class="text-center py-2 custom-grey-background grey-shadow rounded" style="font-size: 24px; font-weight: 900;">
+                <span class="primary-custom-color">{{data.constituency}}</span> {{data.Name}}
+            </h5>
+        </div>
+    </div>
+    <div class="row mx-1 ">
+
+        <!-- 2nd col  -->
+        <div class="col-12 col-md-12" style="min-height: 50vh;">
+            
+            <h5 class=" bg-dark text-white p-2">Contesting Candidates</h5>
+            <table id="example" class="data-table-custom display compact" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Candidates</th>
+                        <th>Party</th>
+                        <th>Party</th>
+                        <th>Votes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- <tr>
+                        <td>{{winner}} (Winner)</td>
+                        <td>232424</td>
+                        <td>PTI</td>
+                    </tr> -->
+                    {% for i in candidates %}
+
+                        <!-- to show the winner change loop index to 1 -->
+                        {% if loop.index == 0 %}
+                    
+                        <tr class="winner-row">
+                            <td>{{i.candidate_name}}<span class="winner-text">WINNER</span></td>
+                            <td>{{i.party}}</td>
+                            <td>{{i.party_abv}}</td>
+                            <td>{% if i.votes %} {{i.votes}} {% else %} N/A {% endif %}</td>
+                        </tr>   
+
+                        
+                        <!-- to show the runnerup change loop index to 2 -->
+                        {% elif loop.index == 0 %}
+                    
+                        <tr class="runnerup-row">
+                            <td>
+                                {{i.candidate_name}}<span class="runnerup-text">RUNNER-UP</span>
+                            </td>
+                            <td>{{i.party}}</td>
+                            <td>{{i.party_abv}}</td>
+                            <td>{% if i.votes %} {{i.votes}} {% else %} N/A {% endif %}</td>
+                        </tr>   
+
+                        
+                        {% else %}  
+                    
+                        <tr>
+                            <td>{{i.candidate_name}}</td>
+                            <td>{{i.party}}</td>
+                            <td>{{i.party_abv}}</td>
+                            <td>{% if i.votes %} {{i.votes}} {% else %} N/A {% endif %}</td>
+                        </tr>     
+
+                        
+                        {% endif %} 
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- main container  -->
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script>
+    // $('#example').DataTable({
+    //             "order": [[2, 'desc']] // Assuming "vote" column is at index 1
+    //         });
+            
+    $('#example').dataTable( {
+        "ordering": false,
+        order: [[3, 'desc']]
+    } );
+</script>
+{% endblock %}

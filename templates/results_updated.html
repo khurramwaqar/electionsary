@@ -1,0 +1,465 @@
+{% extends 'base.html' %}
+
+{% block title %}Pakistan General Election {{year}} Results{% endblock %}
+
+{% block meta %}
+{% if year == 2024 %}
+<meta name="title" content="Pakistan General Elections {{year}}: Results, Party Position, Candidates and Live Updates">
+<meta name="description" content="Pakistan will see elections {{year}} on February 8 on 266 NA and 593 provincial assembly seats- Check the results of all these constituencies on ARY News election portal.">
+<meta name="keywords" content="General Election {{year}}, Pakistan Election {{year}} polls, Pakistan Elections, Pakistan General Elections {{year}}, Today Election results Pakistan, General elections update, Elections update, Elections results {{year}}, Elections results, Election polls, Election results live update, Elections, Candidates, Election Results">
+<!-- Required meta tags -->
+<link rel="canonical" href="https://elections.arynews.tv/results">
+<meta property="og:title" content="Pakistan General Election {{year}} Results">
+<meta property="og:description" content="Pakistan will see elections {{year}} on February 8 on 266 NA and 593 provincial assembly seats- Check the results of all these constituencies on ARY News election portal.">
+<meta property="og:url" content="https://elections.arynews.tv/results">
+<meta name="twitter:description" content="Pakistan will see elections {{year}} on February 8 on 266 NA and 593 provincial assembly seats- Check the results of all these constituencies on ARY News election portal.">
+<script type="application/ld+json">
+    {
+        "@context": "http://schema.org/",
+        "@type": "LiveBlogPosting",
+            "description":"Pakistan will see elections {{year}} on February 8 on 266 NA and 593 provincial assembly seats- Check the results of all these constituencies on ARY News election portal.",
+            "image":"https://elections.arynews.tv/static/images/web-og.jpg",
+            "name":"Pakistan General Elections {{year}}: Results, Party Position, Candidates and Live Updates",
+            "url":"https://elections.arynews.tv/results/2024"
+    }
+</script>
+
+{% elif year == 2018 %}>
+<meta name="title" content="Pakistan General Elections {{year}}: Results, Party Position, Candidates and Live Updates">
+<meta name="description" content="Elections {{year}} Pakistan results LIVE- National Assembly (NA) results, updates, breaking news, videos. PML-N, PPP, PTI's independent candidates are favourites to win major NA seats.">
+<meta name="keywords" content="General Election {{year}}, Pakistan Election {{year}} polls, Pakistan Elections, Pakistan General Elections {{year}}, Today Election results Pakistan, General elections update, Elections update, Elections results {{year}}, Elections results, Election polls, Election results live update, Elections, Candidates, Election Results">
+<!-- Required meta tags -->
+<link rel="canonical" href="https://elections.arynews.tv/results/{{year}}">
+<meta property="og:title" content="Pakistan General Election {{year}} Results">
+<meta property="og:description" content="Elections {{year}} Pakistan results LIVE- National Assembly (NA) results, updates, breaking news, videos. PML-N, PPP, PTI's independent candidates are favourites to win major NA seats.">
+<meta property="og:url" content="https://elections.arynews.tv/results/{{year}}">
+<meta name="twitter:description" content="Elections {{year}} Pakistan results LIVE- National Assembly (NA) results, updates, breaking news, videos. PML-N, PPP, PTI's independent candidates are favourites to win major NA seats.">
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<!-- breadcrumb -->
+<div class="container p-0 breadcrumb-custom">
+    <nav aria-label="breadcrumb" class="breadcrumb py-2 m-0">
+        <ol class="breadcrumb p-0 m-0">
+            <li class="breadcrumb-item">
+                <a href="/">HOME</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">NA Results {{year}}</li>
+        </ol>
+    </nav>
+</div>
+<!-- breadcrumb ends  -->
+<div class="container mt-2 p-0 text-center">
+    <div class="row d-flex justify-content-center">
+        <div class="w-25">
+            <select onchange="year_change()" name="year-select" id="year-select" class="form-control">
+                <option {% if year == 2024 %} selected {% endif %} value="2024">2024</option>
+                <option {% if year == 2018 %} selected {% endif %} value="2018">2018</option>
+            </select>
+        </div>
+    </div>
+</div>
+<div class="container p-0">
+    <h5 class="heading-custom">
+        Election {{year}} NA (UnOfficial Results)
+    </h5>
+    {% if year == 2024 %}
+    <h5 class="heading-custom text-dark" style="background-color: var(--grey-custom-color);">
+        Polling to start at 08:00AM on February 08, 2024
+    </h5>
+    {% endif %}
+    <!-- Tab links -->
+    {% if year == 2024 %}
+    <div class="tab">
+        <div class="row">
+            <div class="col-md-8 col-12">
+                
+                <a href="/results/{{year}}">
+                    <button class="tablinks btn btn-sm {% if not province %} active{% endif %}">NATIONAL ASSEMBLY</button>
+                </a>
+                <a href="/provincial-results/kpk/{{year}}">
+                    <button class="tablinks btn btn-sm {% if province == 'kpk' %}active{% endif %}">KPK</button>
+                </a>
+                <a href="/provincial-results/punjab/{{year}}">
+                    <button class="tablinks btn btn-sm {% if province == 'punjab' %}active{% endif %}">PUNJAB</button>
+                </a>
+                <a href="/provincial-results/sindh/{{year}}">
+                    <button class="tablinks btn btn-sm {% if province == 'sindh' %}active{% endif %}">SINDH</button>
+                </a>
+                <a href="/provincial-results/balochistan/{{year}}">
+                    <button class="tablinks btn btn-sm {% if province == 'balochistan' %}active{% endif %}">BALOCHISTAN</button>
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    <div class="container">
+        <div class="row">
+            <div class="container">
+                <div class=" row d-flex justify-content-center justify-content-md-end p-0">
+                    <!-- Search Button  -->
+                    <div class="form-group">
+                        <label class="sr-only" for="search_constituency">Username</label>
+                        <div class="input-group mt-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">NA-</div>
+                            </div>
+                            <input
+                                type="number"
+                                class="form-control-sm"
+                                style="border: 1px solid #ced4da;"
+                                id="search_constituency"
+                                onkeypress="handleKeyPress(event)"
+                            >
+                            <button onclick="search()" class="btn btn-sm text-white" style="background-color: #c0392b;">Search</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-center p-0">
+                    <!-- Select  -->                  
+                    
+                    <div class="form-group w-100">
+                        <select class="form-control w-100" id="exampleFormControlSelect1">
+                        <option>Select to View More</option>
+                        <option>1-50</option>
+                        <option>51-100</option>
+                        <option>101-150</option>
+                        <option>151-200</option>
+                        <option>201-250</option>
+                        {% if year == 2024 %}
+                        <option>251-266</option>
+                        {% elif year == 2018 %}
+                        <option>251-272</option>
+                        {% endif %}
+                        </select>
+                    </div>
+                </div>
+                {% for i in data %}
+                <div class="row  f-dlex rounded mb-5 result-custom-card" style="background:white;box-shadow: 3px 3px 5px 2px var(--grey-custom-color); border:1px solid var(--grey-custom-color); border-top: 3x double #c0392b !important">
+                    <!-- 1st col  -->
+                    <div class="col-12 col-md-4 px-5 py-2 d-flex flex-column align-items-center align-items-md-start">
+                        <div class="border-bottom-text na-card-font">
+                            <a href="/constituency/{{i.constituency}}/{{year}}" style="color:black; text-decoration: none;"><p class="text-center text-sm-left">
+                                {{i.constituency}}
+                                <br>
+                                {{i.Name}}
+                            </p></a>
+                        </div>
+                        <div class="mt-3 na-card-font2 text-center text-sm-left">
+                            <p>
+                                <span class="tabpanelSpan digit-font">
+                                    {% if year == 2024 %}
+                                    {% set reg_voters = i.reg_voters %}
+                                    {% set reg_voters_float = reg_voters | int %}
+                                    {{ "{:,}".format(reg_voters_float) }}
+                                    {% elif year == 2018 %}
+                                    {{i.na_info.voters}}
+                                    {% endif %}
+                                </span>
+                                <br>
+                                VOTERS
+                            </p>
+                        </div>
+                        <div class="na-card-font2 text-center text-sm-left">
+                            <div>
+                                <p>
+                                    <span class="digit-font">
+                                        
+                                    {% if year == 2024 %}
+                                    {% set male_voters = i.male_voters %}
+                                    {% set male_voters_float = male_voters | int %}
+                                    {{ "{:,}".format(male_voters_float) }}
+                                    {% elif year == 2018 %}
+                                    {{i.na_info.male}}
+                                    {% endif %}
+                                    </span>
+                                    <br>
+                                    MALE
+                                </p>
+                            </div>
+                            <div>
+                                <p>
+                                    <span class="digit-font">
+                                    {% if year == 2024 %}     
+                                    
+                                    {% set female_voters = i.female_voters %}
+                                    {% set female_voters_float = female_voters | int %}
+                                    {{ "{:,}".format(female_voters_float) }}
+                                    {% elif year == 2018 %}
+                                    {{i.na_info.female}}
+                                    {% endif %}
+                                    </span>
+                                    <br>
+                                    FEMALE
+                                </p>
+                            </div>
+                        </div>
+                        <div class="na-card-font2 text-center text-sm-left">
+                            <p>
+                                POLLING STATIONS: 
+                                
+                                {% if year == 2024 %}
+                                    
+                                
+                                {{i.polling_stations}}
+                                {% elif year == 2018 %}
+                                {{i.na_info.polling_stations}}
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                    <!-- 2nd col  -->
+                    <div class="col-12 col-md-4 px-1 justify-content-center d-flex">
+                        <img class="img-fluid img w-50 py-5 " src="/static/images/maps/{{i.constituency}}.svg" alt="">
+                    </div>
+                    {% if year == 2024 %}
+
+                    <!-- 3rd col  -->
+                    <div class="col-12 col-md-4 px-5 py-2 d-flex flex-column align-items-center align-items-md-end justify-content-center" style="min-height: 50vh;">
+                        <div class="na-card-font text-center text-sm-right d-flex justify-content-between">
+                            {% if i.leading_candidate %}
+                            <div class="mr-2">
+                                <h5 class="Winner-heading rounded px-2 py-1">{{ i.leading_candidate}} </h5>
+                            </div>
+                            
+                            <div>
+                                
+                                {% if i.leading_party == "IND" %}
+                                <h5 class="Winner-heading rounded px-2 py-1" style="background-color: #6e6e6e;">{{ i.leading_party}}</h5>
+                                {% elif i.leading_party == "PTI-IND" %}
+                                <h5 class="Winner-heading rounded px-2 py-1" style="background-color: #d30000;">{{ i.leading_party}}</h5>
+                                {% elif i.leading_party == "PML-N" %}
+                                <h5 class="Winner-heading rounded px-2 py-1" style="background-color: #1f6a1f;">{{ i.leading_party}}</h5>
+                                {% elif i.leading_party == "PPPP" %}
+                                <h5 class="Winner-heading rounded px-2 py-1" style="background-color: #202020;">{{ i.leading_party}}</h5>
+                                {% elif i.leading_party == "MQM-P" %}
+                                <h5 class="Winner-heading rounded px-2 py-1" style="background-color: #ff0000;">{{ i.leading_party}}</h5>
+                                {% elif i.leading_party == "ANP" %}
+                                <h5 class="Winner-heading rounded px-2 py-1" style="background-color: #6a3034;">{{ i.leading_party}}</h5>
+                                {% elif i.leading_party == "GDA" %}
+                                <h5 class="Winner-heading rounded px-2 py-1" style="background-color: #38931f;">{{ i.leading_party}}</h5>
+                                {% elif i.leading_party == "IPP" %}
+                                <h5 class="Winner-heading rounded px-2 py-1" style="background-color: #df6603;">{{ i.leading_party}}</h5>
+                                {% elif i.leading_party == "JI" %}
+                                <h5 class="Winner-heading rounded px-2 py-1" style="background-color: #365ec3;">{{ i.leading_party}}</h5>
+                                {% elif i.leading_party == "BNP" %}
+                                <h5 class="Winner-heading rounded px-2 py-1" style="background-color: #91861a;">{{ i.leading_party}}</h5>
+                                {% else %}
+                                <h5 class="Winner-heading rounded px-2 py-1" style="background-color: var(--primary-custom-color);">{{ i.leading_party}}</h5>
+                                {% endif %}
+                            </div>
+                            
+                            
+                            
+                        {% endif %}
+                        </div>
+                        {% if i.leading_candidate %}
+                        <div class="na-card-font text-center text-sm-right">
+                            <p> <img src="/static/images/live.gif" width="32" alt="">LEADING</p>
+                        </div>
+                        {% else %}
+                        <div class="na-card-font text-center text-sm-right">
+                            <p> <img src="/static/images/live.gif" width="32" alt="">AWAITING RESULTS</p>
+                        </div>
+
+                        {% endif %}
+                        <div class="na-card-font2 text-center text-sm-right">
+                            <p>
+                                <span class="digit-font">{% if i.turnout %} 
+                                      {{ "{:,.2}".format(i.turnout) }}%
+                                    {% else %} N/A {% endif %} </span>
+                                <br>
+                                TURNOUT
+                            </p>
+                        </div>
+                        <div class="na-card-font2 text-center text-sm-right">
+                            <p>
+                                <span class="digit-font">{% if i.total_votes %} {{ "{:,}".format(i.total_votes) }} {% else %} N/A {% endif %}</span>
+                                <br>
+                                VOTES POLLED
+                            </p>
+                        </div>
+                        <div class="na-card-font2 text-center text-sm-right">
+                            <p>
+                                <span class="digit-font">{% if i.leading_votes %}
+                                     
+                                    {% set leading_votes = i.leading_votes %}
+                                    {% set leading_votes_float = leading_votes | int %}
+                                     {{ "{:,}".format(leading_votes_float) }}
+                                     {% else %} N/A {% endif %}</span>
+                                <br>
+                                WINNER VOTES
+                            </p>
+                        </div>
+                        <!-- <div class="na-card-font2 text-center text-sm-right">
+                            
+                        
+                        <a href="/share-result/{{i.constituency}}"><button class="Winner-heading btn rounded px-2 py-1 border-0">Download Result</button></a>
+                        </div> -->
+                    </div>
+                    {% else %}
+
+                    <!-- 3rd col  -->
+                    <div class="col-12 col-md-4 px-5 py-2 d-flex flex-column align-items-center align-items-md-end justify-content-center" style="min-height: 50vh;">
+                        <div class="na-card-font text-center text-sm-right">
+                            <h5 class="Winner-heading rounded px-2 py-1">{% if i.winner %} {{i.winner}} {% else %} N/A {% endif %}</h5>
+                        </div>
+                        <div class="na-card-font text-center text-sm-right">
+                            <p>Winner</p>
+                        </div>
+                        <div class="na-card-font2 text-center text-sm-right">
+                            <p>
+                                <span class="digit-font">{% if i.na_info.turnout %} {{i.na_info.turnout}} {% else %} N/A {% endif %} </span>
+                                <br>
+                                TURNOUT
+                            </p>
+                        </div>
+                        <div class="na-card-font2 text-center text-sm-right">
+                            <p>
+                                <span class="digit-font">{% if i.na_info.votes_polled %} {{i.na_info.votes_polled}} {% else %} N/A {% endif %}</span>
+                                <br>
+                                VOTES POLLED
+                            </p>
+                        </div>
+                        <div class="na-card-font2 text-center text-sm-right">
+                            <p>
+                                <span class="digit-font">{% if i.na_info.win_votes %} {{i.na_info.win_votes}} {% else %} N/A {% endif %}</span>
+                                <br>
+                                VOTES
+                            </p>
+                        </div>
+                        <!-- <div class="na-card-font2 text-center text-sm-right">
+                            
+                        
+                        <a href="/share-result/{{i.constituency}}"><button class="Winner-heading btn rounded px-2 py-1 border-0">Download Result</button></a>
+                        </div> -->
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- year change script  -->
+<script>
+    function year_change() {
+        window.location.href = "/results/" + document.getElementById("year-select").value;
+    }
+</script>
+<!-- search function  -->
+<script>
+    function search() {
+      // Get the entered value
+      var enteredValue = document.getElementById('search_constituency').value;
+
+      // Check if the entered value is a valid integer between 1 and 266
+      if (isInteger(enteredValue) && enteredValue >= 1 && enteredValue <= 266) {
+        // Redirect to the specified URL
+        window.location.href = '/constituency/NA-'+enteredValue+'/{{year}}';
+        
+      } else {
+        // Show an alert if the entered value is not valid
+        alert('Record does not exist.');
+      }
+    }
+
+    // Helper function to check if a value is an integer
+    function isInteger(value) {
+      return Number.isInteger(Number(value));
+    }
+    function handleKeyPress(event) {
+        if (event.key === "Enter") {
+            search();
+        }
+    }
+</script>
+
+<!-- select pagination function  -->
+<script>
+    const year = '{{year}}';
+    $(document).ready(function () {
+        // Set the number of results to display at a time
+        var resultsPerPage = 50;
+
+        // Hide all cards initially
+        $('.result-custom-card').hide();
+
+        // Show the first 'resultsPerPage' cards
+        $('.result-custom-card:lt(' + resultsPerPage + ')').show();
+
+        // Initialize the current page
+        var currentPage = 1;
+
+        
+
+        // Handle the selection change in the dropdown
+        $('#exampleFormControlSelect1').on('change', function () {
+            // Get the selected option
+            var selectedOption = $(this).val();
+
+            // Hide all cards
+            $('.result-custom-card').hide();
+            if (year==2024){
+                // Show the selected range of cards based on the dropdown selection
+                switch (selectedOption) {
+                    case '1-50':
+                        $('.result-custom-card:lt(50)').show();
+                        break;
+                    case '51-100':
+                        $('.result-custom-card:lt(100):gt(49)').show();
+                        break;
+                    case '101-150':
+                        $('.result-custom-card:lt(150):gt(99)').show();
+                        break;
+                    case '151-200':
+                        $('.result-custom-card:lt(200):gt(149)').show();
+                        break;
+                    case '201-250':
+                        $('.result-custom-card:lt(250):gt(199)').show();
+                        break;
+                    case '251-266':
+                        $('.result-custom-card:lt(266):gt(249)').show();
+                        break;
+                    default:
+                        // Show the first 'resultsPerPage' cards if no specific range is selected
+                        $('.result-custom-card:lt(' + resultsPerPage + ')').show();
+                        break;
+                }
+            }else if (year == 2018){
+                // Show the selected range of cards based on the dropdown selection
+                switch (selectedOption) {
+                    case '1-50':
+                        $('.result-custom-card:lt(50)').show();
+                        break;
+                    case '51-100':
+                        $('.result-custom-card:lt(100):gt(49)').show();
+                        break;
+                    case '101-150':
+                        $('.result-custom-card:lt(150):gt(99)').show();
+                        break;
+                    case '151-200':
+                        $('.result-custom-card:lt(200):gt(149)').show();
+                        break;
+                    case '201-250':
+                        $('.result-custom-card:lt(250):gt(199)').show();
+                        break;
+                    case '251-272':
+                        $('.result-custom-card:lt(272):gt(249)').show();
+                        break;
+                    default:
+                        // Show the first 'resultsPerPage' cards if no specific range is selected
+                        $('.result-custom-card:lt(' + resultsPerPage + ')').show();
+                        break;
+                }
+
+            }
+
+            // Reset the current page to 1
+            currentPage = 1;
+        });
+    });
+</script>
+{% endblock %}
